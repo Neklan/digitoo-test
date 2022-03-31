@@ -11,6 +11,10 @@ import { MembershipEntity } from './membership.entity';
 export class UserEntity {
   @PrimaryGeneratedColumn() id: number;
 
+  @OneToOne(() => MembershipEntity)
+  @JoinColumn()
+  _membership: number;
+
   @Column('char', { length: 50, unique: true })
   email: string;
 
@@ -22,8 +26,4 @@ export class UserEntity {
 
   @Column('date')
   birthday: string;
-
-  @OneToOne(() => MembershipEntity)
-  @JoinColumn()
-  _membership: number;
 }
