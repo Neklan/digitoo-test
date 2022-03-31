@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  db:
+    image: "postgres"
+    restart: "always"
+    container_name: "digitoo_postgres"
+    environment:
+      POSTGRES_PASSWORD: "root"
+      POSTGRES_USER: "root"
+      POSTGRES_DB: "digitoo_db"
+    ports:
+      - "5432:5432"
+    volumes:
+      - digitoo_dbdata:/var/lib/postgresql/data
+  pgadmin:
+    container_name: "digitoo_pgadmin4"
+    image: "dpage/pgadmin4"
+    restart: "always"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "root"
+    ports:
+      - "5050:80"
+volumes:
+  digitoo_dbdata:
