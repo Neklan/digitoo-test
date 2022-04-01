@@ -7,9 +7,9 @@ import {
 } from 'typeorm';
 import { MembershipEntity } from '../membership/membership.entity';
 
-@Entity({ name: 'users', schema: 'public' })
+@Entity({ name: 'user', schema: 'public' })
 export class UserEntity {
-  @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn('increment') id: number;
 
   @OneToOne(() => MembershipEntity)
   @JoinColumn({ name: '_membership', referencedColumnName: 'id' })
