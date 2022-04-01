@@ -5,14 +5,14 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm';
-import { MembershipEntity } from './membership.entity';
+import { MembershipEntity } from '../membership/membership.entity';
 
-@Entity('user')
+@Entity({ name: 'users', schema: 'public' })
 export class UserEntity {
   @PrimaryGeneratedColumn() id: number;
 
   @OneToOne(() => MembershipEntity)
-  @JoinColumn()
+  @JoinColumn({ name: '_membership', referencedColumnName: 'id' })
   _membership: number;
 
   @Column('char', { length: 50, unique: true })

@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: "root"
       POSTGRES_USER: "root"
       POSTGRES_DB: "digitoo_db"
+    networks:
+      - server-net
     ports:
       - "5432:5432"
     volumes:
@@ -16,6 +18,10 @@ services:
     container_name: "digitoo_pgadmin4"
     image: "dpage/pgadmin4"
     restart: "always"
+    links:
+      - postgres:postgres
+    networks:
+      - server-net
     environment:
       PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
       PGADMIN_DEFAULT_PASSWORD: "root"
@@ -23,3 +29,6 @@ services:
       - "5050:80"
 volumes:
   digitoo_dbdata:
+networks:
+  server-net:
+    driver: bridge

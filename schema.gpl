@@ -1,0 +1,33 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type MembershipDto {
+  id: Int!
+  type: String!
+  createdAt: String!
+}
+
+type UserDto {
+  id: Int!
+  _membership: MembershipDto!
+  email: String!
+  first_name: String!
+  last_name: String!
+  birthday: String!
+}
+
+type Query {
+  users: [UserDto!]!
+}
+
+type Mutation {
+  createUser(data: InputUser!): UserDto!
+}
+
+input InputUser {
+  email: String!
+  first_name: String!
+  last_name: String!
+  birthday: String!
+}
