@@ -3,5 +3,5 @@ import { MembershipType } from '../enums/membership.enum';
 
 @InputType()
 export class InputMembership {
-  @Field(() => MembershipType) readonly type: MembershipType;
+  @Field(() => MembershipType) readonly typeName: MembershipType;
 }

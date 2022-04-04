@@ -8,6 +8,6 @@ registerEnumType(MembershipType, {
 @ObjectType()
 export class MembershipDto {
   @Field(() => Int) readonly id?: number;
-  @Field() readonly type: string;
+  @Field() readonly typeName: string;
   @Field() readonly createdAt: string;
 }

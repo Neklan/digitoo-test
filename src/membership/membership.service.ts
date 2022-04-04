@@ -12,12 +12,12 @@ export class MembershipService {
     private readonly MembershipRepository: Repository<MembershipEntity>,
   ) {}
 
-  async getMembershipById(id: number) {
-    return await this.MembershipRepository.findOneBy({ id });
+  async getMembershipById(membershipId: number) {
+    return await this.MembershipRepository.findOneBy({ id: membershipId });
   }
 
-  async findMembershipByType(type: string) {
-    return await this.MembershipRepository.findOneBy({ type });
+  async findMembershipByType(typeName: MembershipType) {
+    return await this.MembershipRepository.findOneBy({ typeName });
   }
 
   async getMemberships() {
@@ -26,8 +26,7 @@ export class MembershipService {
 
   async createMembership(data: InputMembership): Promise<MembershipEntity> {
     const membership = new MembershipEntity();
-    membership.type = MembershipType[data.type];
-    membership.createdAt = new Date().toISOString();
+    membership.typeName = data.typeName;
     await this.MembershipRepository.save(membership);
     return membership;
   }

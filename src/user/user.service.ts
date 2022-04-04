@@ -14,14 +14,16 @@ export class UserService {
   ) {}
 
   async createUser(data: InputUser): Promise<UserEntity> {
-    const membership = await this.membershipService.findMembershipByType(
-      data.type.toString(),
-    );
+    const membership = await this.membershipService.createMembership({
+      typeName: data.type,
+    });
     const user = new UserEntity();
     user.first_name = data.first_name;
     user.last_name = data.last_name;
     user.birthday = data.birthday;
     user.email = data.email;
+    user.membershipId = membership.id;
+    console.log(user);
     await this.UserRepository.save(user);
     return user;
   }

@@ -4,13 +4,13 @@
 
 type MembershipDto {
   id: Int!
-  type: String!
+  typeName: String!
   createdAt: String!
 }
 
 type UserDto {
   id: Int!
-  _membership: MembershipDto!
+  membership: MembershipDto!
   email: String!
   first_name: String!
   last_name: String!
@@ -18,12 +18,11 @@ type UserDto {
 }
 
 type Query {
-  users: [MembershipDto!]!
+  users: [UserDto!]!
 }
 
 type Mutation {
   createUser(data: InputUser!): UserDto!
-  createMembership(data: InputMembership!): MembershipDto!
 }
 
 input InputUser {
@@ -37,8 +36,4 @@ input InputUser {
 enum MembershipType {
   basic
   profi
-}
-
-input InputMembership {
-  type: MembershipType!
 }

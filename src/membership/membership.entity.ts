@@ -1,12 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { BaseEntity } from 'src/base.entity';
+import { UserEntity } from 'src/user/user.entity';
+import { Entity, Column, OneToOne } from 'typeorm';
+import { MembershipType } from './enums/membership.enum';
 
 @Entity({ name: 'membership', schema: 'public' })
-export class MembershipEntity {
-  @PrimaryGeneratedColumn('increment') id: number;
+export class MembershipEntity extends BaseEntity {
+  @Column({
+    type: 'enum',
+    enum: MembershipType,
+    default: MembershipType.basic,
+  })
+  typeName: MembershipType;
 
-  @Column('char', { length: 50, unique: true })
-  type: string;
-
-  @Column('timestamp with time zone')
-  createdAt: string;
+  @OneToOne(() => UserEntity, (user) => user.membershipConnection)
+  userConnection: Promise<UserEntity>;
 }

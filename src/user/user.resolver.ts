@@ -30,8 +30,8 @@ export class UserResolver {
   }
 
   @ResolveField()
-  async _membership(@Parent() user: UserEntity) {
-    const { _membership } = user;
-    return this.membershipService.getMembershipById(_membership);
+  async membership(@Parent() user: UserEntity) {
+    const { membershipId } = user;
+    return this.membershipService.getMembershipById(membershipId);
   }
 }

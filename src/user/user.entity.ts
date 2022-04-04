@@ -1,19 +1,15 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  JoinColumn,
-  OneToOne,
-} from 'typeorm';
+import { BaseEntity } from 'src/base.entity';
+import { Entity, Column, JoinColumn, OneToOne } from 'typeorm';
 import { MembershipEntity } from '../membership/membership.entity';
 
 @Entity({ name: 'user', schema: 'public' })
-export class UserEntity {
-  @PrimaryGeneratedColumn('increment') id: number;
+export class UserEntity extends BaseEntity {
+  @OneToOne(() => MembershipEntity, (membership) => membership.userConnection)
+  @JoinColumn({ name: 'membershipId', referencedColumnName: 'id' })
+  membershipConnection: Promise<MembershipEntity>;
 
-  @OneToOne(() => MembershipEntity)
-  @JoinColumn({ name: '_membership', referencedColumnName: 'id' })
-  _membership: number;
+  @Column('integer')
+  membershipId: number;
 
   @Column('char', { length: 50, unique: true })
   email: string;
