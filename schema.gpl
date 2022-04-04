@@ -18,7 +18,12 @@ type UserDto {
 }
 
 type Query {
-  users: [UserDto!]!
+  users(birthday: String, email: String, membership: MembershipType): [UserDto!]!
+}
+
+enum MembershipType {
+  basic
+  profi
 }
 
 type Mutation {
@@ -31,9 +36,4 @@ input InputUser {
   last_name: String!
   birthday: String!
   type: MembershipType!
-}
-
-enum MembershipType {
-  basic
-  profi
 }

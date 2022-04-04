@@ -1,6 +1,5 @@
 import { BaseEntity } from 'src/base.entity';
-import { UserEntity } from 'src/user/user.entity';
-import { Entity, Column, OneToOne } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { MembershipType } from './enums/membership.enum';
 
 @Entity({ name: 'membership', schema: 'public' })
@@ -11,7 +10,4 @@ export class MembershipEntity extends BaseEntity {
     default: MembershipType.basic,
   })
   typeName: MembershipType;
-
-  @OneToOne(() => UserEntity, (user) => user.membershipConnection)
-  userConnection: Promise<UserEntity>;
 }

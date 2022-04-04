@@ -1,37 +1,20 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  ResolveField,
-  Parent,
-} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
 import { InputUser } from './inputs/user.input';
-import { MembershipService } from 'src/membership/membership.service';
-import { UserEntity } from './user.entity';
+import { GetUsersARgs } from './args/users.args';
 
 @Resolver(() => UserDto)
 export class UserResolver {
-  constructor(
-    private readonly userService: UserService,
-    private readonly membershipService: MembershipService,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @Query(() => [UserDto])
-  async users() {
-    return this.userService.getUsers();
+  async users(@Args() args: GetUsersARgs) {
+    return this.userService.getUsers(args);
   }
 
   @Mutation(() => UserDto)
   async createUser(@Args('data') data: InputUser) {
     return this.userService.createUser(data);
-  }
-
-  @ResolveField()
-  async membership(@Parent() user: UserEntity) {
-    const { membershipId } = user;
-    return this.membershipService.getMembershipById(membershipId);
   }
 }

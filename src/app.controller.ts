@@ -1,4 +1,5 @@
 import { Controller, Delete, Get, HttpStatus, Res } from '@nestjs/common';
+import { ApiResponse } from '@nestjs/swagger';
 import { Response } from 'express';
 import { AppService } from './app.service';
 
@@ -11,9 +12,13 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Delete()
-  async purgeDb(@Res() res: Response) {
+  @Delete('purge')
+  @ApiResponse({
+    description: 'Purge all items in database.',
+  })
+  async purgeDb(@Res() res: Response): Promise<[]> {
     await this.appService.purgeDb();
     res.status(HttpStatus.OK).json([]);
+    return [];
   }
 }
