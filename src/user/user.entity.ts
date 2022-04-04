@@ -4,7 +4,7 @@ import { MembershipEntity } from '../membership/membership.entity';
 
 @Entity({ name: 'user', schema: 'public' })
 export class UserEntity extends BaseEntity {
-  @OneToOne(() => MembershipEntity)
+  @OneToOne(() => MembershipEntity, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn()
   membership: MembershipEntity;
 

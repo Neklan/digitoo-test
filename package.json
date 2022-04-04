@@ -19,6 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "init:testdb": "createdb -h 127.0.0.1 -U root digitoo_test",
     "typeorm:migration:generate": "yarn typeorm migration:generate -n Migration",
     "typeorm:migration:run": "yarn typeorm migration:run"
   },

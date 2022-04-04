@@ -48,6 +48,6 @@ export class UserService {
   }
 
   async truncate() {
-    this.UserRepository.delete({});
+    return this.UserRepository.delete({});
   }
 }

@@ -17,5 +17,5 @@ export class GetUsersARgs {
   @Field(() => MembershipType, { nullable: true })
   @IsEnum(MembershipType)
   @IsOptional()
-  membership?: string;
+  membership?: MembershipType;
 }

@@ -1,20 +1,26 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from 'src/app.module';
-import { UserModule } from 'src/user/user.module';
-import { UserService } from 'src/user/user.service';
+import { INestApplication } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TestTypeORMConfig } from 'src/config/index.config';
 import { MembershipModule } from './membership.module';
 import { MembershipService } from './membership.service';
 
 describe('MembershipService', () => {
   let service: MembershipService;
+  let app: INestApplication;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, UserModule, MembershipModule],
-      providers: [MembershipService, UserService],
+  beforeAll(async () => {
+    const module = await Test.createTestingModule({
+      imports: [TypeOrmModule.forRoot(TestTypeORMConfig), MembershipModule],
+      providers: [MembershipService],
     }).compile();
+    app = module.createNestApplication();
+    await app.init();
+    service = app.get<MembershipService>(MembershipService);
+  });
 
-    service = module.get<MembershipService>(MembershipService);
+  afterAll(async () => {
+    await app.close();
   });
 
   it('should be defined', () => {
