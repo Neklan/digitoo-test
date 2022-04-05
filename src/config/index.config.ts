@@ -8,3 +8,5 @@ export const TestTypeORMConfig = {
   entities: ['./**/*.entity.ts'],
   synchronize: true,
 };
+
+export const AuthSecret = 'topsecrettoken';
